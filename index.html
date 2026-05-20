@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>특수교육 정보센터</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*{font-family:'Noto Sans KR',-apple-system,sans-serif}
+.bounce-1{animation:bounce 1s infinite}
+.bounce-2{animation:bounce 1s infinite .15s}
+.bounce-3{animation:bounce 1s infinite .3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+</style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
+<div id="app"></div>
+<script>
+var lang='ko';
+var GPT_URL='https://chatgpt.com/g/g-67ef241d4e2c8191b4fd1cae4ca3977a-teugsugyoyug-doumi-teugsugyoyugdaesangja-jindan-pyeongga-mic-seonjeong-baeci-doumi';
+
+var i18n={
+ko:{title:'특수교육 정보센터',subtitle:'Special Education Info Center',aiChat:'AI 상담',categories:'카테고리',backHome:'홈으로',heroTitle:'특수교육, 쉽게 알아보세요!',heroDesc:'진단·평가부터 배치, 지원서비스까지 한눈에',askAI:'AI에게 물어보기',catTitle:'카테고리별 정보',learnMore:'더 알아보기 →',inputPH:'특수교육에 대해 궁금한 점을 질문해 주세요...',quickQs:['특수교육대상자가 되려면?','진단평가 절차 알려줘','치료지원 신청 방법','개별화교육계획이란?'],footer1:'교육부 · 시도교육청 특수교육 정책 기반',footer2:'본 정보는 참고용이며, 정확한 내용은 관할 교육청에 문의하세요.',gptTitle:'💡 더 자세한 상담이 필요하시면',gptBtn:'🤖 특수교육 AI 도우미',botGreet:'안녕하세요! 👋 특수교육 AI입니다.\n\n특수교육에 관한 궁금한 점을 편하게 물어보세요!',notFound:'질문을 정확히 이해하지 못했어요.\n\n카테고리에서 원하는 정보를 찾아보세요!',related:'관련 질문이시네요!',checkCat:'카테고리에서 자세한 내용을 확인해 보세요.'},
+en:{title:'Special Education Info',subtitle:'특수교육 정보센터',aiChat:'AI Chat',categories:'Categories',backHome:'Home',heroTitle:'Learn About Special Education!',heroDesc:'From assessment to placement and support',askAI:'Ask AI',catTitle:'Browse by Category',learnMore:'Learn More →',inputPH:'Ask about special education...',quickQs:['How to become eligible?','Assessment process','Therapy support','What is IEP?'],footer1:'Based on Ministry of Education Policy',footer2:'For reference only. Contact your local education office.',gptTitle:'💡 Need more help?',gptBtn:'🤖 AI Helper',botGreet:'Hello! 👋 Special Education AI.\n\nFeel free to ask anything!',notFound:'I did not understand.\n\nPlease browse the categories!',related:'Related question!',checkCat:'Check this category for details.'}
+};
+
+function t(k){return i18n[lang][k]||k;}
+
+var catKo={
+intro:{title:"특수교육이란",icon:"📚",color:"from-blue-500 to-indigo-600",desc:"특수교육의 정의와 법적 근거",qs:[
+{q:"특수교육이란 무엇인가요?",a:"특수교육이란:\n\n📌 법적 정의:\n특수교육대상자의 교육적 요구를 충족시키기 위하여 특성에 적합한 교육과정과 특수교육 관련서비스를 제공하는 교육\n(「장애인 등에 대한 특수교육법」 제2조)\n\n📌 핵심 요소:\n• 개별화된 교육과정 운영\n• 특수교육 관련서비스 제공\n• 통합교육 지향\n• 무상 의무교육 보장\n\n📊 2025년 현황:\n• 특수교육대상자: 115,610명\n• 특수학교: 195교 (30,027명)\n• 특수학급: 13,931학급 (65,966명)\n• 일반학급: 19,254명\n• 특수교육지원센터: 197개소"},
+{q:"특수교육대상자란?",a:"특수교육대상자란:\n\n📌 정의:\n교육장 또는 교육감이 특수교육이 필요한 사람으로 선정한 사람\n\n📌 11개 장애영역:\n① 시각장애 1.5%\n② 청각장애 2.8%\n③ 지적장애 50.1% ★\n④ 지체장애 5.2%\n⑤ 정서·행동장애 1.4%\n⑥ 자폐성장애 19.2% ★\n⑦ 의사소통장애 2.1%\n⑧ 학습장애 0.8%\n⑨ 건강장애 1.8%\n⑩ 발달지체 12.3%\n⑪ 그 밖의 장애 2.8%\n\n📌 선정 절차:\n신청 → 진단평가(30일) → 운영위원회 심의 → 선정배치(2주) → 서면통지"},
+{q:"특수교육 관련서비스란?",a:"특수교육 관련서비스:\n\n📌 정의:\n특수교육대상자의 교육을 효율적으로 실시하기 위해 필요한 서비스\n\n📌 7가지 서비스:\n\n1️⃣ 상담지원\n• 학생/가족 심리상담, 진로상담\n\n2️⃣ 가족지원\n• 가족상담, 보호자 교육\n\n3️⃣ 치료지원\n• 물리치료, 작업치료, 언어치료\n• 청능훈련, 심리치료\n\n4️⃣ 보조인력지원\n• 특수교육실무사 배치\n\n5️⃣ 보조공학기기지원\n• 의사소통기기(AAC), 이동보조기기\n\n6️⃣ 통학지원\n• 통학차량, 통학비 지원\n\n7️⃣ 정보접근지원\n• 점자자료, 수어통역"},
+{q:"통합교육이란?",a:"통합교육이란:\n\n📌 정의:\n특수교육대상자가 일반학교에서 또래와 함께 교육받는 것\n\n📊 2025년 현황:\n• 일반학교 배치: 73.7% (85,220명)\n  - 특수학급: 65,966명\n  - 일반학급: 19,254명\n• 특수학교 배치: 26.3% (30,027명)\n\n📌 통합 형태:\n• 완전통합: 일반학급 전일 교육\n• 시간제 통합: 특수학급+일반학급\n• 역통합: 비장애학생이 특수학급 참여\n\n📌 통합교육 지원:\n• 통합학급 담임 연수\n• 보조인력 배치\n• 장애이해교육 (연 2회 이상)\n• 협력교수 운영"},
+{q:"의무교육과 무상교육?",a:"의무교육 vs 무상교육:\n\n📌 의무교육 (총 15년):\n• 유치원 3년 (만 3~5세)\n• 초등학교 6년\n• 중학교 3년\n• 고등학교 3년\n\n📌 무상교육 범위:\n• 입학금, 수업료\n• 교과서, 급식비\n\n📌 차이점:\n• 의무교육 = 취학의무 + 무상\n• 무상교육 = 비용면제 (의무 아님)\n\n📌 만 3세 미만 영아:\n무상교육 ⭕ / 의무교육 ❌\n\n📌 전공과:\n무상교육 ⭕ / 의무교육 ❌\n\n⚠️ 취학의무 위반: 100만원 이하 과태료"}
+]},
+disability:{title:"장애영역",icon:"🏷️",color:"from-violet-500 to-purple-600",desc:"11개 장애영역별 선정기준",qs:[
+{q:"시각장애 선정기준?",a:"시각장애:\n\n📌 정의:\n시각기능을 전혀 이용하지 못하거나 보조공학기기 지원이 필요한 사람\n\n📌 기준:\n• 교정시력 0.04 미만\n• 시야 10도 이내\n• 촉각/청각으로 학습\n\n📌 검사:\n• 시력검사, 시야검사\n• 시기능검사, 촉지각검사\n\n📌 지원:\n• 점자교육, 점자교과서\n• 확대독서기, 화면낭독기\n• 보행훈련\n\n📊 현황: 전체의 약 1.5%"},
+{q:"청각장애 선정기준?",a:"청각장애:\n\n📌 정의:\n청력손실이 심하여 의사소통이 곤란한 사람\n\n📌 기준:\n• 양쪽 귀 60dB 이상\n• 한쪽 80dB+, 다른쪽 40dB+\n• 말소리 명료도 50% 이하\n\n📌 검사:\n• 순음청력검사(PTA)\n• 어음청력검사\n• 청성뇌간반응검사(ABR)\n\n📌 지원:\n• 보청기, 인공와우\n• FM시스템\n• 수어통역, 문자통역\n\n📊 현황: 전체의 약 2.8%"},
+{q:"지적장애 선정기준?",a:"지적장애:\n\n📌 정의:\n지적기능과 적응행동 어려움이 함께 존재\n\n📌 기준:\n① IQ 75 이하\n     AND\n② 적응행동 -2 표준편차 이하\n⚠️ 두 조건 모두 필요!\n\n📌 검사:\n• 지능검사: K-WISC-V, K-ABC-II\n• 적응행동: KISE-SAB\n• 사회성숙도검사\n\n📌 교육:\n• 기능적 생활기술\n• 직업교육, 사회적응훈련\n\n📊 현황: 전체의 약 50.1% (가장 많음)"},
+{q:"자폐성장애 선정기준?",a:"자폐성장애:\n\n📌 정의:\n사회적 상호작용, 의사소통 결함과 제한적/반복적 행동\n\n📌 핵심 특성:\n① 사회적 상호작용 결함\n• 눈맞춤, 또래관계 어려움\n② 의사소통 결함\n• 언어발달 지연\n③ 제한적/반복적 행동\n• 상동행동, 집착\n\n📌 검사:\n• K-CARS, ADOS-2, ADI-R\n• 적응행동검사, 언어발달검사\n\n📌 지원:\n• 구조화된 교육(TEACCH)\n• ABA, 사회성훈련, AAC\n\n📊 현황: 전체의 약 19.2% (급증)"},
+{q:"발달지체 선정기준?",a:"발달지체:\n\n📌 정의:\n5개 발달영역 중 1개 이상 현저히 지체\n\n⚠️ 만 9세 미만만 해당!\n\n📌 기준:\n• -2 표준편차 이하\n• 또는 백분위 2%ile 이하\n\n📌 5개 영역:\n① 신체 발달\n② 인지 발달\n③ 의사소통 발달\n④ 사회·정서 발달\n⑤ 적응행동 발달\n\n📌 만 9세 이후:\n구체적 장애영역으로 재선정 필요\n(지적장애, 자폐성장애 등)\n\n📊 현황: 전체의 약 12.3%"},
+{q:"정서·행동장애 선정기준?",a:"정서·행동장애:\n\n📌 5가지 특성 (1개 이상):\n① 학습 어려움 (지적/감각 원인 아님)\n② 대인관계 어려움\n③ 부적절한 행동/감정\n④ 우울증\n⑤ 신체적 통증/공포\n\n⚠️ 6개월 이상 지속 필요\n⚠️ 의료기관 평가 필수\n\n📌 관련 진단:\n• ADHD\n• 불안장애, 우울장애\n• 품행장애\n\n📌 지원:\n• 상담, 심리치료\n• 긍정적 행동지원(PBS)\n\n📊 현황: 전체의 약 1.4%"},
+{q:"의사소통장애 선정기준?",a:"의사소통장애:\n\n📌 4가지 유형:\n① 언어장애\n• 수용/표현 능력 부족\n② 조음장애\n• 발음 부정확\n③ 유창성장애\n• 말더듬\n④ 음성장애\n• 음도/강도/음질 이상\n\n📌 검사:\n• 언어발달: REVT, PRES\n• 조음: U-TAP, APAC\n• 유창성: P-FA-II\n\n📌 지원:\n• 언어치료\n• AAC (보완대체의사소통)\n\n📊 현황: 전체의 약 2.1%"},
+{q:"학습장애 선정기준?",a:"학습장애:\n\n📌 정의:\n내적 요인으로 읽기, 쓰기, 수학에 어려움\n\n📌 특성:\n• 지능 정상 (IQ 70~75↑)\n• 특정 영역 심각한 어려움\n\n📌 3가지 유형:\n① 난독증 (읽기)\n② 난서증 (쓰기)\n③ 난산증 (수학)\n\n⚠️ 제외:\n• 지적장애로 인한 학습문제\n• 환경적 요인\n\n📌 검사:\n• 지능검사\n• 기초학습기능검사(BASA)\n\n📊 현황: 전체의 약 0.8%"},
+{q:"지체장애 선정기준?",a:"지체장애:\n\n📌 정의:\n신체적 조건으로 교육적 성취에 어려움\n\n📌 원인:\n• 뇌성마비\n• 근이영양증\n• 골격질환, 외상\n\n📌 검사:\n• 재활의학과/정형외과 진단\n• 운동능력검사(GMFM)\n• 일상생활동작검사(ADL)\n\n📌 지원:\n• 전동휠체어, 보조기구\n• 물리치료, 작업치료\n• 환경수정(경사로 등)\n• AAC\n\n📊 현황: 전체의 약 5.2%"},
+{q:"건강장애 선정기준?",a:"건강장애:\n\n📌 정의:\n만성질환으로 3개월 이상 치료 필요\n\n📌 해당 질환:\n• 소아암, 백혈병\n• 심장/신장/간질환\n• 당뇨, 뇌전증\n• 희귀질환\n\n📌 지원:\n• 병원학교 (전국 35개소)\n• 원격수업 (스쿨포유)\n• 순회교육\n• 출석 인정\n\n📌 복귀 시:\n• 원적학교 복귀 원칙\n• 학업 연계 지원\n\n📊 현황: 전체의 약 1.8%"},
+{q:"중복장애란?",a:"중복장애:\n\n📌 정의:\n두 가지 이상 장애가 중복\n\n📌 예시:\n• 시각+지적장애\n• 청각+자폐성장애\n• 지체+지적장애\n• 시각+청각장애\n\n📌 선정:\n• 주된 장애로 선정\n• 모든 장애 고려하여 IEP 작성\n\n📌 지원:\n• 복합적 관련서비스\n• 다학문적 팀 접근\n• 1:1 보조인력 고려\n\n📊 현황: 전체의 약 2.8%"}
+]},
+diagnosis:{title:"진단·평가",icon:"🔍",color:"from-cyan-500 to-blue-600",desc:"진단평가 절차 및 서류",qs:[
+{q:"진단·평가 절차는?",a:"진단·평가 절차:\n\n📌 6단계:\n\n1️⃣ 신청 접수\n• 보호자 또는 학교장 신청\n• 특수교육지원센터 접수\n\n2️⃣ 진단·평가 (30일 이내)\n• 장애영역별 전문 검사\n• 필요시 외부기관 의뢰\n\n3️⃣ 결과 보고\n\n4️⃣ 운영위원회 심의\n• 선정 여부 결정\n• 배치 결정\n\n5️⃣ 선정·배치 결정 (2주 이내)\n\n6️⃣ 보호자 서면 통지\n• 이의신청 방법 안내"},
+{q:"필요한 서류는?",a:"신청 서류:\n\n📌 필수:\n① 선정·배치 신청서\n② 진단·검사 의뢰서\n③ 개인정보 동의서\n\n📌 증빙서류 (택1):\n• 장애인등록증\n• 의사 진단서 (6개월 이내)\n\n📌 도움되는 서류:\n• 발달검사 결과\n• 치료기록\n• 학교생활기록부\n• 관찰일지\n\n📌 신청처:\n• 특수교육지원센터\n• 재학 중인 학교\n\n⏰ 수시 접수 가능"},
+{q:"진단·평가 영역은?",a:"평가 영역:\n\n📌 공통 필수:\n① 기초학습 (읽기, 쓰기, 수학)\n② 사회적응능력\n③ 언어능력\n\n📌 장애별 추가:\n• 시각: 시력, 시기능\n• 청각: 청력검사\n• 지적: 지능, 적응행동\n• 자폐: 자폐특성검사\n• 정서행동: 심리검사\n• 의사소통: 조음, 유창성\n• 학습: 학업성취검사\n• 지체: 운동기능검사\n• 건강: 건강상태 평가\n• 발달지체: 5개 영역 전체"},
+{q:"재선정은 언제?",a:"재선정:\n\n📌 필수:\n• 발달지체 학생이 만 9세 된 경우\n→ 다른 장애영역으로 재선정\n\n📌 임의:\n• 장애상태 현저히 변화\n• 보호자/학교장 요청\n• 운영위원회 결정\n\n📌 재배치:\n• 현 배치 부적절 시\n• 전학, 이사\n• 상급학교 진학\n\n📌 이의신청:\n• 90일 이내\n• 시도 운영위원회에 청구"}
+]},
+placement:{title:"학급·배치",icon:"🏫",color:"from-amber-500 to-orange-600",desc:"교육환경 배치 기준",qs:[
+{q:"배치 유형은?",a:"배치 유형:\n\n📌 3가지:\n\n1️⃣ 일반학교 일반학급\n• 완전통합\n• 순회교육 지원\n• 19,254명 (16.7%)\n\n2️⃣ 일반학교 특수학급\n• 시간제/전일제\n• 통합수업 병행\n• 65,966명 (57.1%)\n\n3️⃣ 특수학교\n• 전문적 교육\n• 치료지원 제공\n• 30,027명 (26.0%)\n\n📌 원칙:\n• 최소제한환경(LRE)\n• 통합교육 우선\n• 보호자 의견 존중"},
+{q:"배치 결정 기준?",a:"배치 기준:\n\n📌 고려사항:\n① 장애유형/정도\n② 교육적 요구\n③ 적응 능력\n④ 보호자 의견 ⭐\n⑤ 통학거리\n⑥ 학교 여건\n\n📌 결정:\n• 운영위원회 심의 후 2주 이내\n• 서면 통지\n\n📌 이의신청:\n• 90일 이내\n• 시도 운영위원회에 청구\n\n📌 학교 의무:\n• 입학 거부 금지\n• 편의 제공"},
+{q:"순회교육이란?",a:"순회교육:\n\n📌 정의:\n교사가 학교/병원/가정 방문 교육\n\n📌 대상:\n• 일반학급 배치 학생\n• 장기결석 학생\n• 가정/병원 체류 학생\n• 장애영아 (만3세 미만)\n\n📌 운영:\n• 특수교육지원센터 순회교사\n• 주당 일정 시간 방문\n• IEP에 따른 교육\n\n📌 내용:\n• 교과 지도\n• 치료지원\n• 생활지도\n• 보호자 상담"},
+{q:"특수학교 종류?",a:"특수학교:\n\n📌 장애영역별 (2025):\n• 시각장애: 13교\n• 청각장애: 14교\n• 지적장애: 129교\n• 지체장애: 21교\n• 정서장애: 8교\n• 전체: 195교\n\n📌 과정:\n• 유치원 3년\n• 초등 6년\n• 중학교 3년\n• 고등학교 3년\n• 전공과 1~3년\n\n📌 특징:\n• 소규모 학급 (4~6명)\n• 치료지원 제공\n• 통학버스 운영"}
+]},
+therapy:{title:"치료지원",icon:"💊",color:"from-rose-500 to-pink-600",desc:"치료지원 서비스 안내",qs:[
+{q:"치료지원 서비스?",a:"치료지원:\n\n📌 5가지 유형:\n\n1️⃣ 물리치료\n• 운동기능 향상\n• 보행훈련\n\n2️⃣ 작업치료\n• 일상생활동작\n• 소근육, 감각통합\n\n3️⃣ 언어치료\n• 의사소통 능력\n• 조음, 유창성\n\n4️⃣ 청능훈련\n• 보청기/인공와우 적응\n\n5️⃣ 심리치료\n• 상담, 놀이치료\n• 행동수정\n\n📌 제공방식:\n① 학교 내 치료실\n② 치료지원 바우처"},
+{q:"치료지원 바우처?",a:"치료지원 바우처:\n\n📌 지원금액:\n• 월 10~14만원\n• 지역별 상이\n\n📌 신청:\n① 학교에서 신청\n② 지원센터 제출\n③ 바우처 카드 발급\n\n📌 이용:\n• 지정 치료기관에서 사용\n• 월별 한도 내 자유이용\n\n⚠️ 주의:\n• 본인부담금 있을 수 있음\n• 미사용 금액 이월 불가\n• 발달재활서비스와 중복 불가"},
+{q:"보조공학기기 지원?",a:"보조공학기기:\n\n📌 시각장애:\n• 화면낭독기\n• 점자단말기\n• 확대독서기\n\n📌 청각장애:\n• 보청기\n• FM시스템\n\n📌 지체장애:\n• 전동휠체어\n• AAC기기\n• 특수키보드\n\n📌 신청:\n① 학교/지원센터 신청\n② 적합성 평가\n③ 기기 지원(대여/지급)"},
+{q:"보조인력 지원?",a:"보조인력:\n\n📌 특수교육실무사 역할:\n• 학습활동 보조\n• 개인욕구 지원(식사, 용변)\n• 이동 보조\n• 안전 관리\n\n📌 배치 기준:\n• 장애 정도가 심한 학생\n• 일상생활 지원 필요\n\n📌 배치 절차:\n① 학교에서 신청\n② 교육청 심사\n③ 배치 결정\n\n⚠️ 보조인력은 '보조' 역할\n교육/지도는 교사의 역할"}
+]},
+career:{title:"진로·직업",icon:"🎯",color:"from-emerald-500 to-green-600",desc:"진로교육 및 전환교육",qs:[
+{q:"전환교육이란?",a:"전환교육:\n\n📌 정의:\n학교에서 사회로 전환 준비 교육\n\n📌 영역:\n① 진로 탐색\n② 직업 훈련\n③ 자립생활훈련\n④ 사회적응훈련\n⑤ 여가활동\n\n📌 학교급별:\n• 초등: 진로 인식\n• 중학: 진로 탐색, 체험\n• 고등: 직업훈련, 현장실습\n\n📌 졸업 후:\n• 진학 (전공과, 대학)\n• 취업\n• 자립생활\n• 평생교육"},
+{q:"전공과란?",a:"전공과:\n\n📌 정의:\n고졸 후 1~3년 직업교육 과정\n\n📌 설치:\n• 특수학교 (대부분)\n• 일부 고등학교\n\n📌 내용:\n• 직업기능 훈련\n• 현장실습\n• 자립생활훈련\n• 취업 연계\n\n📌 특징:\n✅ 무상교육\n❌ 의무교육 아님\n• 만 18세 이상\n\n📌 졸업 후:\n• 취업\n• 추가 직업훈련\n• 평생교육"},
+{q:"대학 진학?",a:"장애학생 대학:\n\n📌 전형:\n• 장애인 특별전형\n• 정원 외 모집\n\n📌 수능 편의지원:\n• 시간연장 (1.5~1.7배)\n• 대필\n• 확대/점자문제지\n• 별도 시험실\n• 보청기, 음성지원\n\n📌 대학 지원:\n• 장애학생지원센터 (의무)\n• 장애대학생 도우미\n• 편의시설, 보조기기\n• 수강신청 우선권"},
+{q:"취업 지원?",a:"장애인 취업:\n\n📌 취업 유형:\n① 일반고용 (경쟁고용)\n② 지원고용 (직무지도원)\n③ 보호고용 (직업재활시설)\n\n📌 의무고용:\n• 공공기관: 3.6%\n• 민간 (50인↑): 3.1%\n\n📌 지원기관:\n• 장애인고용공단 1588-1519\n• 직업재활시설\n• 발달장애인지원센터\n\n📌 서비스:\n• 직업상담/평가\n• 직업훈련\n• 취업알선\n• 적응지도"}
+]},
+iep:{title:"개별화교육",icon:"📋",color:"from-indigo-500 to-blue-600",desc:"IEP 수립 및 운영",qs:[
+{q:"IEP란?",a:"개별화교육계획(IEP):\n\n📌 정의:\n학생 특성에 맞는 교육목표, 방법, 서비스를 담은 계획\n\n📌 포함 내용:\n① 인적사항\n② 현재 수행수준\n③ 교육목표 (장기/단기)\n④ 교육내용/방법\n⑤ 평가계획\n⑥ 관련서비스\n⑦ (고등) 진로계획\n\n📌 작성 시기:\n• 2주 내: IEP팀 구성\n• 30일 내: IEP 작성 완료"},
+{q:"IEP팀 구성?",a:"IEP팀:\n\n📌 필수:\n• 보호자 ⭐\n• 특수교육교원\n• 일반교육교원\n• 진로담당교원\n• 관련서비스 담당자\n\n📌 참여 가능:\n• 학생 본인\n• 외부 전문가\n• 특수교육실무사\n\n📌 운영:\n• 학기당 1회 이상 회의\n• 보호자 참여 필수\n• 회의록 작성"},
+{q:"IEP 평가?",a:"IEP 평가:\n\n📌 시기:\n• 매 학기 실시\n• 최소 연 2회\n\n📌 내용:\n• 목표 달성도\n• 방법 적절성\n• 서비스 효과\n\n📌 방법:\n• 관찰평가\n• 수행평가\n• 포트폴리오\n• 체크리스트\n\n📌 활용:\n• 다음 IEP 수정\n• 보호자 통보 (필수)\n• 배치 검토"},
+{q:"IEP 목표 작성?",a:"IEP 목표:\n\n📌 장기목표: 1년간 달성\n📌 단기목표: 학기별 단계\n\n📌 SMART 원칙:\nS - 구체적\nM - 측정 가능\nA - 달성 가능\nR - 관련성\nT - 기한 명시\n\n📌 예시:\n❌ 읽기를 잘한다\n⭕ 2학기말까지 3~4문장 글을 읽고 질문에 80% 정확하게 답한다\n\n📌 영역:\n• 교과학습\n• 사회성\n• 일상생활\n• 의사소통\n• 행동"}
+]},
+rights:{title:"권리·의무",icon:"⚖️",color:"from-slate-600 to-gray-700",desc:"법적 권리와 의무",qs:[
+{q:"학생 권리?",a:"학생 권리:\n\n📌 교육권:\n• 차별 없이 교육받을 권리\n• 무상 의무교육\n• 개별화교육\n• 통합교육 참여\n\n📌 지원받을 권리:\n• 관련서비스\n• 치료지원\n• 보조인력\n• 보조기기\n\n📌 차별받지 않을 권리:\n• 입학 거부 금지\n• 수업/활동 배제 금지\n• 개인정보 보호\n\n📌 인권:\n• 체벌 금지\n• 존엄성 존중\n• 의견 표명권"},
+{q:"보호자 권리·의무?",a:"보호자:\n\n✅ 권리:\n• 교육기관 선택권\n• IEP 참여권\n• 정보 요청권\n• 이의신청권 (90일 이내)\n\n⚠️ 의무:\n• 취학의무 (만3~17세)\n• IEP 협조\n• 교육활동 협조\n\n❗ 위반 시:\n100만원 이하 과태료"},
+{q:"차별받으면?",a:"차별 대응:\n\n📌 유형:\n• 입학 거부\n• 수업 배제\n• 현장학습 제외\n• 편의 제공 거부\n\n📌 대응 절차:\n1️⃣ 학교에 시정 요청\n2️⃣ 교육청 민원\n3️⃣ 국가인권위 (1331)\n4️⃣ 장애인권익옹호기관 (1644-8295)\n\n📌 심사청구:\n90일 이내\n시도 운영위원회에 청구"},
+{q:"학대 신고?",a:"학대 신고:\n\n📌 유형:\n• 신체적 학대\n• 정서적 학대\n• 성적 학대\n• 경제적 착취\n• 방임\n\n📌 신고:\n📞 장애인권익옹호기관\n1644-8295 (24시간)\n\n📞 경찰: 112\n\n📌 신고의무자:\n교사, 사회복지사, 의료인\n→ 미신고 시 과태료"}
+]},
+contact:{title:"연락처",icon:"📞",color:"from-teal-500 to-cyan-600",desc:"특수교육 관련 기관",qs:[
+{q:"중앙기관?",a:"🏛️ 중앙기관:\n\n📞 교육부 특수교육정책과\n044-203-6548\nwww.moe.go.kr\n\n📞 국립특수교육원\n041-537-1500\nwww.nise.go.kr\n\n📞 중앙장애아동지원센터\n1644-8295\nwww.broso.or.kr\n\n📞 장애인고용공단\n1588-1519\nwww.kead.or.kr"},
+{q:"시도교육청?",a:"📞 17개 시도교육청:\n\n서울 02-3999-494\n부산 051-860-0353\n대구 053-231-0765\n인천 032-420-8229\n광주 062-380-4335\n대전 042-616-8343\n울산 052-210-5761\n세종 044-320-2373\n경기 031-820-0617\n강원 033-258-5424\n충북 043-290-2673\n충남 041-640-7814\n전북 063-239-3327\n전남 061-260-0463\n경북 053-805-3664\n경남 055-268-1183\n제주 064-710-0351"},
+{q:"관련기관?",a:"📞 관련기관:\n\n🏢 국가인권위원회\n1331\nwww.humanrights.go.kr\n\n🏢 장애인권익옹호기관\n1644-8295 (24시간)\nwww.napd.or.kr\n\n🏢 한국장애인고용공단\n1588-1519\nwww.kead.or.kr\n\n🏢 한국장애인부모회\n02-2678-3131\nwww.kpat.or.kr\n\n🏢 한국장애인개발원\n02-3215-1700\nwww.koddi.or.kr"}
+]}
+};
+
+var catEn={
+intro:{title:"What is Special Ed",icon:"📚",color:"from-blue-500 to-indigo-600",desc:"Definition and legal basis",qs:[
+{q:"What is special education?",a:"Special Education:\n\n📌 Definition:\nEducation providing appropriate curriculum and services for students with disabilities.\n\n📌 Key Elements:\n• Individualized curriculum\n• Related services\n• Inclusive education\n• Free compulsory education\n\n📊 2025 Stats (Korea):\n• Students: 115,610\n• Special schools: 195\n• Special classes: 13,931\n• Support centers: 197"},
+{q:"Who is eligible?",a:"Eligibility:\n\n📌 11 Categories:\n① Visual 1.5%\n② Hearing 2.8%\n③ Intellectual 50.1% ★\n④ Physical 5.2%\n⑤ Emotional/behavioral 1.4%\n⑥ Autism 19.2% ★\n⑦ Communication 2.1%\n⑧ Learning 0.8%\n⑨ Health 1.8%\n⑩ Developmental delay 12.3%\n⑪ Other 2.8%\n\n📌 Process:\nApplication → Assessment (30 days) → Committee → Decision (2 weeks)"},
+{q:"Related services?",a:"Related Services:\n\n📌 7 Types:\n1️⃣ Counseling\n2️⃣ Family support\n3️⃣ Therapy (PT, OT, speech)\n4️⃣ Paraprofessionals\n5️⃣ Assistive technology\n6️⃣ Transportation\n7️⃣ Information access"},
+{q:"Inclusive education?",a:"Inclusive Education:\n\n📌 Definition:\nEducating students with disabilities alongside peers.\n\n📊 2025 Stats:\n• General schools: 73.7%\n• Special schools: 26.3%\n\n📌 Types:\n• Full inclusion\n• Partial inclusion\n• Reverse inclusion"}
+]},
+disability:{title:"Disability Types",icon:"🏷️",color:"from-violet-500 to-purple-600",desc:"11 categories",qs:[
+{q:"Visual impairment?",a:"Visual:\n\n📌 Criteria:\n• Corrected vision < 0.04\n• Visual field < 10 degrees\n\n📌 Support:\n• Braille, screen readers\n• Magnifiers\n\n📊 ~1.5%"},
+{q:"Hearing impairment?",a:"Hearing:\n\n📌 Criteria:\n• Both ears 60dB+\n• Speech clarity < 50%\n\n📌 Support:\n• Hearing aids\n• FM systems\n• Sign language\n\n📊 ~2.8%"},
+{q:"Intellectual disability?",a:"Intellectual:\n\n📌 Criteria:\n① IQ ≤ 75\n     AND\n② Adaptive behavior -2 SD\n⚠️ Both required!\n\n📊 ~50.1% (highest)"},
+{q:"Autism spectrum?",a:"Autism:\n\n📌 Core Features:\n① Social interaction deficits\n② Communication deficits\n③ Restricted/repetitive behaviors\n\n📌 Support:\n• TEACCH, ABA\n• Social skills, AAC\n\n📊 ~19.2% (increasing)"},
+{q:"Other disabilities?",a:"Other Categories:\n\n📌 Developmental delay: ~12.3%\n(Under age 9 only)\n\n📌 Emotional/behavioral: ~1.4%\n\n📌 Communication: ~2.1%\n\n📌 Learning: ~0.8%\n\n📌 Physical: ~5.2%\n\n📌 Health: ~1.8%\n\n📌 Multiple: ~2.8%"}
+]},
+diagnosis:{title:"Assessment",icon:"🔍",color:"from-cyan-500 to-blue-600",desc:"Procedures",qs:[
+{q:"Process?",a:"Assessment Process:\n\n1️⃣ Application\n2️⃣ Assessment (30 days)\n3️⃣ Results report\n4️⃣ Committee review\n5️⃣ Decision (2 weeks)\n6️⃣ Written notice"},
+{q:"Documents?",a:"Required:\n① Application form\n② Assessment request\n③ Privacy consent\n④ Disability evidence\n\n📌 Submit to:\n• Support Center\n• Current school"}
+]},
+placement:{title:"Placement",icon:"🏫",color:"from-amber-500 to-orange-600",desc:"Settings",qs:[
+{q:"Types?",a:"Placement:\n\n1️⃣ General class (16.7%)\n• Full inclusion\n\n2️⃣ Special class (57.1%)\n• Part/full time\n\n3️⃣ Special school (26.0%)\n• Specialized\n\n📌 Principle: LRE"},
+{q:"Criteria?",a:"Considerations:\n① Disability type\n② Educational needs\n③ Adaptation\n④ Parent preference ⭐\n⑤ Distance\n⑥ School resources\n\n📌 Appeal: Within 90 days"}
+]},
+therapy:{title:"Therapy",icon:"💊",color:"from-rose-500 to-pink-600",desc:"Services",qs:[
+{q:"Services?",a:"Therapy:\n\n1️⃣ Physical therapy\n2️⃣ Occupational therapy\n3️⃣ Speech therapy\n4️⃣ Auditory training\n5️⃣ Psychological therapy\n\n📌 Delivery:\n① School-based\n② Voucher system"},
+{q:"Assistive tech?",a:"AT:\n\n📌 Visual: Screen readers, braille\n📌 Hearing: Hearing aids, FM\n📌 Physical: Wheelchairs, AAC\n\n📌 Application through school/center"}
+]},
+career:{title:"Career",icon:"🎯",color:"from-emerald-500 to-green-600",desc:"Transition",qs:[
+{q:"Transition?",a:"Transition Education:\n\n📌 Areas:\n① Career exploration\n② Vocational training\n③ Independent living\n④ Social adaptation\n\n📌 Post-school:\n• College\n• Employment\n• Independent living"},
+{q:"College?",a:"College Access:\n\n📌 Special admission tracks\n\n📌 Test accommodations:\n• Extended time\n• Scribes\n• Large print/Braille\n\n📌 Campus support:\n• Disability centers\n• Academic assistants"}
+]},
+iep:{title:"IEP",icon:"📋",color:"from-indigo-500 to-blue-600",desc:"Individualized Ed",qs:[
+{q:"What is IEP?",a:"IEP:\n\n📌 Contents:\n① Present levels\n② Goals\n③ Content/methods\n④ Evaluation plan\n⑤ Related services\n\n📌 Timeline:\n• 2 weeks: Form team\n• 30 days: Complete IEP"},
+{q:"IEP team?",a:"Team:\n\n📌 Required:\n• Parent ⭐\n• Special ed teacher\n• General ed teacher\n• Career teacher\n• Service providers\n\n📌 Meetings: 1+ per semester"}
+]},
+rights:{title:"Rights",icon:"⚖️",color:"from-slate-600 to-gray-700",desc:"Legal rights",qs:[
+{q:"Student rights?",a:"Rights:\n\n📌 Education:\n• Non-discrimination\n• Free education\n• Individualized education\n• Inclusion\n\n📌 Support:\n• Related services\n• Therapy\n• Assistive tech"},
+{q:"If discriminated?",a:"Response:\n\n1️⃣ School correction\n2️⃣ Education office\n3️⃣ Human Rights Commission (1331)\n4️⃣ Disability Rights Agency (1644-8295)"}
+]},
+contact:{title:"Contacts",icon:"📞",color:"from-teal-500 to-cyan-600",desc:"Agencies",qs:[
+{q:"Central agencies?",a:"Central:\n\n📞 Ministry of Education\n044-203-6548\n\n📞 NISE\n041-537-1500\n\n📞 Employment Agency\n1588-1519"},
+{q:"Related agencies?",a:"Agencies:\n\n📞 Human Rights: 1331\n📞 Disability Rights: 1644-8295\n📞 Employment: 1588-1519"}
+]}
+};
+
+function getCat(){return lang==='ko'?catKo:catEn;}
+
+var state={view:'home',cat:null,qIdx:null,msgs:[],input:'',typing:false};
+state.msgs=[{type:'bot',text:t('botGreet'),c:null}];
+
+function genResponse(m){
+var msg=m.toLowerCase(),data=getCat();
+var kw=lang==='ko'?{intro:['특수교육','정의','통합','서비스','무상','의무'],disability:['장애','시각','청각','지적','자폐','발달','정서','행동','의사소통','학습','지체','건강','중복'],diagnosis:['진단','평가','절차','서류'],placement:['배치','특수학급','특수학교','순회'],therapy:['치료','바우처','보조공학','보조인력'],career:['진로','전환','전공과','대학','취업'],iep:['개별화','IEP','교육계획'],rights:['권리','의무','차별','학대'],contact:['연락처','전화','교육청']}:{intro:['special','education','inclusive'],disability:['disability','visual','hearing','intellectual','autism'],diagnosis:['assessment','process'],placement:['placement','class','school'],therapy:['therapy','assistive'],career:['career','transition','college'],iep:['iep','individualized'],rights:['rights','discrimination'],contact:['contact','phone']};
+var bestCat=null,maxM=0;
+for(var c in kw){
+var ws=kw[c],mc=0;
+for(var i=0;i<ws.length;i++){if(msg.indexOf(ws[i].toLowerCase())>=0)mc++;}
+if(mc>maxM){maxM=mc;bestCat=c;}
+}
+var bestA=null,bestS=0;
+for(var ck in data){
+var cd=data[ck];
+for(var j=0;j<cd.qs.length;j++){
+var qa=cd.qs[j],ql=qa.q.toLowerCase();
+var qw=ql.split(/\s+/),mw=msg.split(/\s+/),mc=0;
+for(var k=0;k<qw.length;k++){
+for(var l=0;l<mw.length;l++){
+if(mw[l].indexOf(qw[k])>=0||qw[k].indexOf(mw[l])>=0){mc++;break;}
+}
+}
+var s=mc/qw.length;
+if(s>bestS){bestS=s;bestA={c:ck,qa:qa};}
+}
+}
+if(bestS>0.3&&bestA)return{text:bestA.qa.a,c:bestA.c};
+if(bestCat&&maxM>0){var cd=data[bestCat];return{text:'"'+cd.title+'" '+t('related')+'\n\n'+t('checkCat'),c:bestCat};}
+return{text:t('notFound'),c:null};
+}
+
+function goHome(){state.view='home';state.cat=null;state.qIdx=null;render();}
+function openChat(){state.view='chat';render();}
+function openCat(k){state.cat=k;state.view='cat';state.qIdx=null;render();}
+function togQ(i){state.qIdx=state.qIdx===i?null:i;render();}
+function setInput(v){state.input=v;}
+function onKey(e){if(e.key==='Enter')send();}
+function setQ(q){state.input=q;render();document.getElementById('ci').focus();}
+function openGPT(){window.open(GPT_URL,'_blank');}
+function togLang(){lang=lang==='ko'?'en':'ko';state.msgs=[{type:'bot',text:t('botGreet'),c:null}];render();}
+function send(){
+if(!state.input.trim())return;
+var um=state.input.trim();
+state.msgs.push({type:'user',text:um});
+state.input='';state.typing=true;render();
+setTimeout(function(){var r=genResponse(um);state.msgs.push({type:'bot',text:r.text,c:r.c});state.typing=false;render();},800);
+}
+
+function render(){
+var app=document.getElementById('app'),data=getCat();
+var h='<header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">';
+h+='<div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">';
+h+='<button onclick="goHome()" class="flex items-center gap-3">';
+h+='<div class="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg text-2xl">🎓</div>';
+h+='<div><h1 class="text-xl font-bold text-blue-700">'+t('title')+'</h1><p class="text-xs text-slate-500">'+t('subtitle')+'</p></div>';
+h+='</button>';
+h+='<div class="flex items-center gap-2">';
+h+='<button onclick="togLang()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-sm">🌐 '+(lang==='ko'?'EN':'한국어')+'</button>';
+if(state.view!=='chat'){
+h+='<button onclick="openChat()" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2.5 rounded-xl font-medium">💬 '+t('aiChat')+'</button>';
+}else{
+h+='<button onclick="goHome()" class="flex items-center gap-2 bg-slate-100 text-slate-700 px-5 py-2.5 rounded-xl font-medium">📚 '+t('categories')+'</button>';
+}
+h+='</div></div></header>';
+h+='<main class="max-w-6xl mx-auto px-4 py-8">';
+
+if(state.view==='home'){
+h+='<div class="space-y-8">';
+h+='<div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-3xl p-8 text-white">';
+h+='<h2 class="text-3xl font-bold mb-3">'+t('heroTitle')+'</h2>';
+h+='<p class="text-blue-100 text-lg mb-6">'+t('heroDesc')+'</p>';
+h+='<button onclick="openChat()" class="bg-white text-blue-700 px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 shadow-xl">🤖 '+t('askAI')+'</button>';
+h+='</div>';
+h+='<div><h3 class="text-lg font-bold text-slate-800 mb-4">📂 '+t('catTitle')+'</h3>';
+h+='<div class="grid grid-cols-3 gap-3">';
+var cats=['intro','disability','diagnosis','placement','therapy','career','iep','rights','contact'];
+for(var i=0;i<cats.length;i++){
+var k=cats[i],c=data[k];
+h+='<button onclick="openCat(\''+k+'\')" class="group bg-white rounded-2xl p-4 border border-slate-100 hover:border-blue-200 hover:shadow-xl text-left">';
+h+='<div class="w-12 h-12 bg-gradient-to-br '+c.color+' rounded-2xl flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-lg">'+c.icon+'</div>';
+h+='<h4 class="font-bold text-slate-800 text-sm mb-1">'+c.title+'</h4>';
+h+='<p class="text-xs text-slate-500 hidden md:block">'+c.desc+'</p>';
+h+='</button>';
+}
+h+='</div></div>';
+h+='<div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-200">';
+h+='<h3 class="text-lg font-bold text-purple-800 mb-3">'+t('gptTitle')+'</h3>';
+h+='<button onclick="openGPT()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-bold">'+t('gptBtn')+'</button>';
+h+='</div></div>';
+}else if(state.view==='cat'){
+var c=data[state.cat];
+h+='<div class="space-y-6">';
+h+='<button onclick="goHome()" class="flex items-center gap-2 text-slate-600 hover:text-blue-600">← '+t('backHome')+'</button>';
+h+='<div class="bg-gradient-to-r '+c.color+' rounded-3xl p-8 text-white">';
+h+='<div class="flex items-center gap-4"><div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center text-4xl">'+c.icon+'</div>';
+h+='<div><h2 class="text-3xl font-bold">'+c.title+'</h2><p class="text-white/80">'+c.desc+'</p></div></div>';
+h+='</div><div class="space-y-3">';
+for(var i=0;i<c.qs.length;i++){
+var qa=c.qs[i],ex=state.qIdx===i;
+h+='<div class="bg-white rounded-2xl border border-slate-100 overflow-hidden">';
+h+='<button onclick="togQ('+i+')" class="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50">';
+h+='<span class="font-medium text-slate-800">'+qa.q+'</span><span class="text-xl text-slate-400">'+(ex?'−':'+')+'</span>';
+h+='</button>';
+if(ex){h+='<div class="px-6 py-4 bg-slate-50 border-t border-slate-100"><div class="whitespace-pre-line text-slate-600 leading-relaxed text-sm">'+qa.a+'</div></div>';}
+h+='</div>';
+}
+h+='</div>';
+h+='<button onclick="openChat()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-xl font-bold">💬 '+(lang==='ko'?'더 궁금한 점이 있다면 AI에게 물어보세요':'Have questions? Ask AI')+'</button></div>';
+}else if(state.view==='chat'){
+h+='<div class="bg-white rounded-2xl border border-slate-100 overflow-hidden">';
+h+='<div id="cm" class="h-96 overflow-y-auto p-6 space-y-4">';
+for(var i=0;i<state.msgs.length;i++){
+var m=state.msgs[i];
+if(m.type==='user'){h+='<div class="flex justify-end"><div class="max-w-[80%] rounded-2xl p-4 bg-blue-600 text-white rounded-br-md">'+m.text+'</div></div>';}
+else{
+h+='<div class="flex justify-start"><div class="max-w-[80%] rounded-2xl p-4 bg-slate-100 text-slate-700 rounded-bl-md">';
+h+='<div class="flex items-center gap-2 mb-2 pb-2 border-b border-slate-200"><div class="w-6 h-6 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center text-xs">🤖</div><span class="text-xs font-medium text-slate-500">AI</span></div>';
+h+='<div class="whitespace-pre-line text-sm leading-relaxed">'+m.text+'</div>';
+if(m.c){h+='<button onclick="openCat(\''+m.c+'\')" class="mt-3 text-xs bg-white text-blue-600 px-3 py-2 rounded-lg hover:bg-blue-50 shadow-sm">'+data[m.c].icon+' '+data[m.c].title+' '+t('learnMore')+'</button>';}
+h+='</div></div>';
+}
+}
+if(state.typing){h+='<div class="flex justify-start"><div class="bg-slate-100 rounded-2xl rounded-bl-md p-4"><div class="flex gap-1"><span class="w-2 h-2 bg-slate-400 rounded-full bounce-1"></span><span class="w-2 h-2 bg-slate-400 rounded-full bounce-2"></span><span class="w-2 h-2 bg-slate-400 rounded-full bounce-3"></span></div></div></div>';}
+h+='</div>';
+h+='<div class="bg-gradient-to-r from-purple-50 to-indigo-50 px-6 py-3 border-t border-purple-100 flex items-center gap-2 text-xs text-purple-700">';
+h+='<span>'+t('gptTitle')+'</span><button onclick="openGPT()" class="bg-purple-600 text-white px-3 py-1 rounded-lg">'+t('gptBtn')+'</button></div>';
+h+='<div class="px-4 py-3 overflow-x-auto border-t border-slate-100"><div class="flex gap-2 min-w-max">';
+var qs=t('quickQs');
+for(var i=0;i<qs.length;i++){h+='<button onclick="setQ(\''+qs[i]+'\')" class="px-4 py-2 bg-slate-100 hover:bg-blue-100 hover:text-blue-700 rounded-full text-xs whitespace-nowrap">'+qs[i]+'</button>';}
+h+='</div></div>';
+h+='<div class="p-4 border-t border-slate-100"><div class="bg-slate-100 rounded-xl p-2 flex items-center gap-2">';
+h+='<input id="ci" type="text" value="'+state.input+'" onkeydown="onKey(event)" oninput="setInput(this.value)" placeholder="'+t('inputPH')+'" class="flex-1 bg-transparent px-3 py-2 outline-none text-slate-700 text-sm"/>';
+h+='<button onclick="send()" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-3 rounded-xl">';
+h+='<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>';
+h+='</button></div></div></div>';
+}
+
+h+='</main>';
+h+='<footer class="bg-white/70 border-t border-slate-200 py-6 mt-8">';
+h+='<div class="max-w-6xl mx-auto px-4 text-center">';
+h+='<p class="text-sm text-slate-600 font-medium">'+t('title')+'</p>';
+h+='<p class="text-xs text-slate-500 mt-1">'+t('footer1')+'</p>';
+h+='<p class="text-xs text-slate-400 mt-2">'+t('footer2')+'</p>';
+h+='<p class="text-xs text-slate-400 mt-4 pt-4 border-t border-slate-200">';
+h+=(lang==='ko'?'만든사람':'Created by')+': ';
+h+='<a href="mailto:edahn80@gmail.com" class="text-indigo-500 hover:underline">안지훈(ahnne)</a> / ';
+h+='<a href="https://www.instagram.com/a.k.a.aj/" target="_blank" class="text-indigo-500 hover:underline">@a.k.a.aj</a>';
+h+='</p></div></footer>';
+
+app.innerHTML=h;
+if(state.view==='chat'){var cm=document.getElementById('cm');if(cm)cm.scrollTop=cm.scrollHeight;}
+}
+render();
+</script>
+</body>
+</html>
